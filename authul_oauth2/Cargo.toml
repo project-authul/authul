@@ -1,0 +1,25 @@
+[package]
+name = "authul_oauth2"
+edition = "2021"
+
+[dependencies]
+authul_crypto.workspace = true
+authul_db.workspace = true
+authul_util.workspace = true
+
+actix-web.workspace = true
+base64.workspace = true
+ciborium.workspace = true
+oauth2.workspace = true
+reqwest-middleware.workspace = true
+secrecy.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+strong-box.workspace = true
+thiserror.workspace = true
+thiserror-ext.workspace = true
+time.workspace = true
+tracing.workspace = true
+url.workspace = true
+uuid.workspace = true

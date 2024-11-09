@@ -1,0 +1,7 @@
+error: premature end of macro arguments; expected '=' after 'name'
+ --> tests/errors/table/attr_name_no_equals.rs:1:1
+  |
+1 | #[authul_macros::authul_table(name)]
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: this error originates in the attribute macro `authul_macros::authul_table` (in Nightly builds, run with -Z macro-backtrace for more info)

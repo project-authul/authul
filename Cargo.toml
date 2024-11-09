@@ -1,0 +1,325 @@
+[package]
+name = "authul"
+description = "Customer Identity Management in a box"
+license = "AGPL-3.0-only"
+include = [
+	"/LICENCE",
+	"/src/*.rs",
+]
+version = "0.0.0-git"
+authors = ["Matt Palmer <matt@authul.org>", "The Authul Contributors (see https://github.com/project-authul/authul/graphs/contributors)"]
+repository = "https://github.com/project-authul/authul"
+documentation = "https://authul.com/book/"
+homepage = "https://authul.com"
+keywords = ["oauth2", "saml", "authentication"]
+default-run = "authul"
+categories = ["command-line-utilities", "authentication", "network-programming", "web-programming"]
+edition = "2021"
+# If this is changed, .github/workflows/{audit,qa}.yml build matrix needs updating as well
+rust-version = "1.77.0"
+
+[[bin]]
+name = "authul"
+required-features = ["frontend-ssr", "cli"]
+test = false
+doctest = false
+doc = false
+
+[[bin]]
+name = "authul-frontend"
+required-features = ["frontend-ssr"]
+test = false
+doctest = false
+doc = false
+
+[[bin]]
+name = "authul-cli"
+required-features = ["cli"]
+test = false
+doctest = false
+doc = false
+
+[[test]]
+name = "endpoints"
+required-features = ["frontend-ssr"]
+
+[[test]]
+name = "end-to-end"
+required-features = ["frontend-ssr", "frontend-hydrate"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+debug-macros = ["authul_db/debug-macros"]
+frontend-hydrate = ["authul_frontend/hydrate"]
+cli = [
+	"dep:authul_db",
+	"dep:authul_util",
+	"dep:clap",
+	"dep:secrecy",
+	"dep:service-skeleton",
+	"dep:tokio",
+	"dep:tracing",
+	"dep:url",
+]
+frontend-ssr = [
+	"authul_frontend/ssr",
+	"dep:authul_db",
+	"dep:authul_oauth2",
+	"dep:actix-web",
+	"dep:file-mode",
+	"dep:secrecy",
+	"dep:service-skeleton",
+	"dep:tracing",
+	"dep:url",
+]
+
+[dependencies]
+authul_frontend = { workspace = true, optional = true }
+authul_db = { workspace = true, optional = true }
+authul_oauth2 = { workspace = true, optional = true }
+authul_util = { workspace = true, optional = true }
+actix-web = { workspace = true, optional = true }
+clap = { workspace = true, optional = true }
+file-mode = { workspace = true, optional = true }
+secrecy = { workspace = true, optional = true }
+service-skeleton = { workspace = true, optional = true }
+tokio = { workspace = true, features = ["rt-multi-thread", "macros"], optional = true }
+tracing = { workspace = true, optional = true }
+url = { workspace = true, optional = true }
+
+[dev-dependencies]
+authul_crypto.workspace = true
+authul_util.workspace = true
+actix-rt = "2.1"
+actix-test = "0.1"
+base64.workspace = true
+bcrypt.workspace = true
+fantoccini = "0.19"
+hex-literal = "0.4"
+image = "0.25"
+image-compare = "0.4"
+jwt-simple.workspace = true
+rand.workspace = true
+reqwest-middleware.workspace = true
+reqwest-tracing.workspace = true
+rvcr = { version = "0.2", features = ["json", "matching", "regex"] }
+scraper = "0.19"
+serde_json.workspace = true
+sha2.workspace = true
+time.workspace = true
+tokio.workspace = true
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing-tree = "0.3"
+tracing-log = "0.2"
+uuid.workspace = true
+
+[build-dependencies]
+glob.workspace = true
+jotdown = "0.4"
+serde = { version = "1.0", features = ["derive"] }
+yaml-front-matter = "0.1"
+
+[profile.dev]
+debug = 0
+
+[profile.wasm-release]
+inherits = "release"
+opt-level = 'z'
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[package.metadata.leptos]
+bin-features = ["frontend-ssr"]
+bin-target = "authul-frontend"
+lib-features = ["frontend-hydrate"]
+lib-profile-release = "wasm-release"
+bin-exe-name = "authul-frontend"
+
+[workspace]
+members = [
+	"authul_crypto",
+	"authul_db",
+	"authul_macros",
+	"authul_oauth2",
+	"authul_util",
+	"authul_xtask",
+]
+
+[workspace.dependencies]
+authul_crypto = { path = "authul_crypto" }
+authul_db = { path = "authul_db" }
+authul_frontend = { path = "authul_frontend" }
+authul_macros = { path = "authul_macros" }
+authul_oauth2 = { path = "authul_oauth2" }
+authul_util = { path = "authul_util" }
+actix-web = { version = "4.1" }
+actix-web-httpauth = { version = "0.8" }
+actix-web-rust-embed-responder = { version = "2.2" }
+base64 = { version = "0.22" }
+bcrypt = { version = "0.15" }
+bytes = { version = "1.0" }
+cfg-if = { version = "1.0" }
+ciborium = { version = "0.2" }
+ciborium-ll = { version = "0.2", features = ["std"] }
+ciborium-io = { version = "0.2", features = ["std"] }
+clap = { version = "4.0", features = ["derive"] }
+console_error_panic_hook = "0.1"
+deadpool = { version = "0.12" }
+deadpool-postgres = { version = "0.14" }
+email_address = { version = "0.2" }
+file-mode = { version = "0.1" }
+futures-util = { version = "0.3" }
+glob = { version = "0.3" }
+hex = { version = "0.4" }
+http-cache-reqwest = { version = "0.14", default-features = false }
+jwt-simple = { version = "0.12", default-features = false, features = ["pure-rust"] }
+leptos = { version = "0.6", default-features = false, features = ["miniserde"] }
+leptos_actix = { version = "0.6" }
+leptos_meta = { version = "0.6" }
+leptos_router = { version = "0.6" }
+md-5 = { version = "0.10" }
+oauth2 = { version = "4" }
+parking_lot = { version = "0.12", features = ["arc_lock"] }
+paste = { version = "1.0" }
+pin-project = { version = "1.0" }
+postgres-protocol = { version = "0.6" }
+postgres-types = { version = "0.2", features = ["derive"] }
+rand = { version = "0.8" }
+refinery = { version = "0.8", features = ["tokio-postgres", "int8-versions"] }
+reqwest-middleware = { version = "0.3", features = ["json", "http2", "charset", "rustls-tls"] }
+reqwest-tracing = { version = "0.5" }
+rust-embed-for-web = { version = "11.1" }
+secrecy = { version = "0.8" }
+serde = { version = "1.0" }
+serde_json = { version = "1.0" }
+service-skeleton = { version = "0.5" }
+sha2 = { version = "0.10" }
+strong-box = { version = "0.1" }
+tap = { version = "1.0" }
+thiserror = { version = "1.0" }
+thiserror-ext = { version = "0.2", features = ["location"] }
+time = { version = "0.3" }
+tokio = { version = "1.0" }
+tokio-postgres = { version = "0.7", features = ["with-uuid-1", "with-time-0_3"] }
+tracing-actix-web = { version = "0.7", features = ["uuid_v7"] }
+tracing = { version = "0.1", features = ["max_level_trace", "release_max_level_debug"] }
+url = { version = "2.5" }
+uuid = { version = "1.6", features = ["v4", "v7", "serde"] }
+visibility = { version = "0.1" }
+wasm-bindgen = { version = "=0.2.92" }
+wasm-bindgen-futures = { version = "0.4" }
+zxcvbn = { version = "2.2" }
+
+[workspace.lints.rust]
+unused = { level = "warn", priority = -128 }
+keyword_idents = { level = "warn", priority = -127 }
+future_incompatible = { level = "warn", priority = -100 }
+let_underscore = { level = "warn", priority = -100 }
+
+elided_lifetimes_in_paths = "warn"
+explicit_outlives_requirements = "warn"
+missing_debug_implementations = "warn"
+non_ascii_idents = "warn"
+noop_method_call = "warn"
+single_use_lifetimes = "warn"
+trivial_casts = "warn"
+trivial_numeric_casts = "warn"
+unreachable_pub = "warn"
+unsafe_code = "warn"
+unsafe_op_in_unsafe_fn = "warn"
+unused_import_braces = "warn"
+unused_lifetimes = "warn"
+unused_macro_rules = "warn"
+unused_qualifications = "warn"
+dead_code = "warn"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -100 }
+cargo = { level = "warn", priority = -100 }
+pedantic = { level = "warn", priority = -100 }
+
+alloc_instead_of_core = "warn"
+arithmetic_side_effects = "warn"
+as_underscore = "warn"
+assertions_on_result_states = "warn"
+clone_on_ref_ptr = "warn"
+dbg_macro = "warn"
+decimal_literal_representation = "warn"
+default_numeric_fallback = "warn"
+deref_by_slicing = "warn"
+else_if_without_else = "warn"
+exhaustive_enums = "warn"
+exhaustive_structs = "warn"
+exit = "warn"
+expect_used = "warn"
+float_arithmetic = "warn"
+float_cmp_const = "warn"
+fn_to_numeric_cast_any = "warn"
+format_push_string = "warn"
+get_unwrap = "warn"
+if_then_some_else_none = "warn"
+indexing_slicing = "warn"
+integer_division = "warn"
+let_underscore_must_use = "warn"
+lossy_float_literal = "warn"
+map_err_ignore = "warn"
+mixed_read_write_in_expression = "warn"
+multiple_inherent_impl = "warn"
+non_ascii_literal = "warn"
+panic = "warn"
+panic_in_result_fn = "warn"
+partial_pub_fields = "warn"
+print_stderr = "warn"
+print_stdout = "warn"
+rc_buffer = "warn"
+rc_mutex = "warn"
+rest_pat_in_fully_bound_structs = "warn"
+same_name_method = "warn"
+self_named_module_files = "warn"
+semicolon_inside_block = "warn"
+separated_literal_suffix = "warn"
+shadow_same = "warn"
+shadow_unrelated = "warn"
+string_slice = "warn"
+string_to_string = "warn"
+suspicious_xor_used_as_pow = "warn"
+todo = "warn"
+try_err = "warn"
+undocumented_unsafe_blocks = "warn"
+unimplemented = "warn"
+unnecessary_safety_comment = "warn"
+unnecessary_safety_doc = "warn"
+unneeded_field_pattern = "warn"
+unreachable = "warn"
+unwrap_used = "warn"
+use_debug = "warn"
+wildcard_enum_match_arm = "warn"
+
+[patch.crates-io]
+# https://github.com/TrueLayer/reqwest-middleware/pull/158
+# https://github.com/TrueLayer/reqwest-middleware/pull/160
+reqwest-middleware = { git = "https://github.com/mpalmer/reqwest-middleware.git", branch = "mine" }
+
+# https://github.com/ChorusOne/rvcr/pull/22
+# https://github.com/ChorusOne/rvcr/pull/23
+rvcr = { git = "https://github.com/mpalmer/rvcr", branch = "mine" }
+
+# https://github.com/http-rs/vcr-cassette/pull/4
+vcr-cassette = { git = "https://github.com/mpalmer/vcr-cassette.git", branch = "full-body-workout" }
+
+# https://github.com/rust-db/refinery/pull/330
+refinery = { git = "https://github.com/mpalmer/refinery.git", branch = "int8-versions" }
+
+# https://github.com/risingwavelabs/thiserror-ext/pull/9
+thiserror-ext = { git = "https://github.com/mpalmer/thiserror-ext", branch = "location" }
+
+# https://github.com/dtolnay/thiserror/pull/291
+thiserror = { git = "https://github.com/onlycs/thiserror", branch = "master" }
+
+# https://github.com/sfackler/rust-postgres/pull/565
+tokio-postgres = { git = "https://github.com/mpalmer/rust-postgres", branch = "pr565" }
+postgres-protocol = { git = "https://github.com/mpalmer/rust-postgres", branch = "pr565" }
+postgres-types = { git = "https://github.com/mpalmer/rust-postgres", branch = "pr565" }

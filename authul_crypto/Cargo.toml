@@ -1,0 +1,20 @@
+[package]
+name = "authul_crypto"
+edition = "2021"
+
+[dependencies]
+base64.workspace = true
+bytes.workspace = true
+ciborium-ll.workspace = true
+ed25519-dalek = { version = "2.1", features = ["rand_core"] }
+jose-jwk = "0.1"
+postgres-types.workspace = true
+rand.workspace = true
+reqwest-middleware.workspace = true
+secrecy = { workspace = true, features = ["serde"] }
+serde.workspace = true
+serde_json.workspace = true
+strong-box.workspace = true
+thiserror.workspace = true
+thiserror-ext.workspace = true
+url.workspace = true

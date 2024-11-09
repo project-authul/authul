@@ -1,0 +1,5 @@
+error: invalid macro arg; expected 'name'
+ --> tests/errors/table/invalid_attr_name.rs:1:31
+  |
+1 | #[authul_macros::authul_table(blargh)]
+  |                               ^^^^^^

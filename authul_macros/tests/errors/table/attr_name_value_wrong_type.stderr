@@ -1,0 +1,17 @@
+error: expected string
+ --> tests/errors/table/attr_name_value_wrong_type.rs:1:38
+  |
+1 | #[authul_macros::authul_table(name = 42)]
+  |                                      ^^
+
+error: expected string
+ --> tests/errors/table/attr_name_value_wrong_type.rs:4:38
+  |
+4 | #[authul_macros::authul_table(name = ())]
+  |                                      ^^
+
+error: expected string
+ --> tests/errors/table/attr_name_value_wrong_type.rs:7:38
+  |
+7 | #[authul_macros::authul_table(name = bob)]
+  |                                      ^^^

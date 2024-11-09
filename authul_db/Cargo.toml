@@ -1,0 +1,30 @@
+[package]
+name = "authul_db"
+edition = "2021"
+
+[features]
+debug-macros = ["authul_macros/debug-macros"]
+
+[dependencies]
+authul_crypto.workspace = true
+authul_macros.workspace = true
+ciborium.workspace = true
+deadpool.workspace = true
+deadpool-postgres.workspace = true
+hex.workspace = true
+postgres-protocol.workspace = true
+postgres-types = { workspace = true, features = ["derive"] }
+refinery.workspace = true
+secrecy.workspace = true
+serde.workspace = true
+sha2.workspace = true
+strong-box.workspace = true
+thiserror.workspace = true
+thiserror-ext.workspace = true
+time.workspace = true
+tokio-postgres.workspace = true
+tracing.workspace = true
+uuid.workspace = true
+
+[build-dependencies]
+glob.workspace = true

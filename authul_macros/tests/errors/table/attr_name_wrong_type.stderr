@@ -1,0 +1,11 @@
+error: expected ident
+ --> tests/errors/table/attr_name_wrong_type.rs:1:31
+  |
+1 | #[authul_macros::authul_table(42)]
+  |                               ^^
+
+error: expected ident
+ --> tests/errors/table/attr_name_wrong_type.rs:4:31
+  |
+4 | #[authul_macros::authul_table("name")]
+  |                               ^^^^^^

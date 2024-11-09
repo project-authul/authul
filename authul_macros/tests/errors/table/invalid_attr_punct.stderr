@@ -1,0 +1,17 @@
+error: expected '='
+ --> tests/errors/table/invalid_attr_punct.rs:1:36
+  |
+1 | #[authul_macros::authul_table(name +)]
+  |                                    ^
+
+error: expected '='
+ --> tests/errors/table/invalid_attr_punct.rs:4:36
+  |
+4 | #[authul_macros::authul_table(name !=)]
+  |                                    ^
+
+error: expected '='
+ --> tests/errors/table/invalid_attr_punct.rs:7:36
+  |
+7 | #[authul_macros::authul_table(name ==)]
+  |                                    ^

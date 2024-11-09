@@ -1,0 +1,21 @@
+[package]
+name = "authul_macros"
+edition = "2021"
+
+[lib]
+proc-macro = true
+
+[features]
+debug-macros = ["dep:syn"]
+
+[dependencies]
+heck = "0.5"
+pluralizer = "0.4"
+prettyplease = "0.2"
+proc-macro2 = "1.0"
+quote = "1.0"
+syn = { version = "2.0", optional = true }
+
+[dev-dependencies]
+trybuild = "1.0"
+syn = "2.0"

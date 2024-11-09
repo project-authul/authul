@@ -1,0 +1,33 @@
+{
+    "http_interactions": [
+        {
+            "request": {
+                "uri": "https://example.com/jwks.json",
+                "body": "",
+                "method": "get",
+                "headers": {}
+            },
+            "response": {
+                "http_version": "1.1",
+                "status": { "code": 200, "message": "OK" },
+                "headers": {
+                    "Content-Type": [ "application/json" ]
+                },
+                "body": {
+					"json": [
+						{
+							"kty": "OKP",
+							"use": "sig",
+							"alg": "EdDSA",
+							"kid": "bob",
+							"crv": "Ed25519",
+							"x": "monoON-5UU6YuFBHxem_YjEnHliA2yoG9QUebMYYOjI"
+						}
+					]
+				}
+            },
+            "recorded_at": "Sun, 20 Jul 1969 20:17:00 GMT"
+        }
+    ],
+    "recorded_with": "It's called Vim, motherfucker"
+}

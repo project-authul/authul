@@ -1,0 +1,130 @@
+{
+	"http_interactions": [
+		{
+			"request": {
+				"uri": "https://github.com/login/oauth/access_token",
+				"body": {
+					"matches": [
+						{ "substring": "grant_type=authorization_code" },
+						{ "substring": "code=420" },
+						{ "regex": "http%3A%2F%2F127.0.0.1%3A\\d+%2Fauthenticate%2Foauth_callback" }
+					]
+				},
+				"method": "post",
+				"headers": {
+					"authorization": ["Basic Y2xpZW50aWQ6Y2xpZW50czNrcjF0"],
+					"accept": ["application/json"],
+					"content-type": ["application/x-www-form-urlencoded"]
+				}
+			},
+			"response": {
+				"http_version": "1.1",
+				"status": { "code": 200, "message": "OK" },
+				"headers": {
+					"Content-Type": [ "application/json" ]
+				},
+				"body": {
+					"json": {
+						"access_token": "notAnAccessToken",
+						"token_type": "Bearer"
+					}
+				}
+			},
+			"recorded_at": "Sun, 20 Jul 1969 20:17:00 GMT"
+		},
+		{
+			"request": {
+				"uri": "https://api.github.com/user",
+				"body": "",
+				"method": "get",
+				"headers": {
+					"authorization": ["Bearer notAnAccessToken"],
+					"accept": ["application/vnd.github+json"],
+					"x-github-api-version": ["2022-11-28"]
+				}
+			},
+			"response": {
+				"http_version": "1.1",
+				"status": { "code": 200, "message": "OK" },
+				"headers": {
+					"Content-Type": [ "application/vnd.github+json" ]
+				},
+				"body": {
+					"json": {
+						"id": 42,
+						"login": "jaime",
+						"name": "Jaime Jaimington"
+
+					}
+				}
+			},
+			"recorded_at": "Sun, 20 Jul 1969 20:17:00 GMT"
+		},
+		{
+			"request": {
+				"uri": "https://api.github.com/user/emails",
+				"body": "",
+				"method": "get",
+				"headers": {
+					"authorization": ["Bearer notAnAccessToken"],
+					"accept": ["application/vnd.github+json"],
+					"x-github-api-version": ["2022-11-28"]
+				}
+			},
+			"response": {
+				"http_version": "1.1",
+				"status": { "code": 200, "message": "OK" },
+				"headers": {
+					"Content-Type": [ "application/vnd.github+json" ]
+				},
+				"body": {
+					"json": [
+						{
+							"email": "jaime@example.com",
+							"verified": true,
+							"primary": true
+						},
+						{
+							"email": "someoneelse@example.net",
+							"verified": false,
+							"primary": false
+						},
+						{
+							"email": "j.jaimington@company.example",
+							"verified": true,
+							"primary": false
+						}
+					]
+				}
+			},
+			"recorded_at": "Sun, 20 Jul 1969 20:17:00 GMT"
+		},
+		{
+			"request": {
+				"uri": "https://example.com/token_forward_jwk.json",
+				"body": "",
+				"method": "get",
+				"headers": {}
+			},
+			"response": {
+				"http_version": "1.1",
+				"status": { "code": 200, "message": "OK" },
+				"headers": {
+					"Content-Type": [ "application/json" ]
+				},
+				"body": {
+					"json": {
+						"kty": "OKP",
+						"use": "sig",
+						"alg": "EdDSA",
+						"kid": "bob",
+						"crv": "Ed25519",
+						"x": "monoON-5UU6YuFBHxem_YjEnHliA2yoG9QUebMYYOjI"
+					}
+				}
+			},
+			"recorded_at": "Sun, 20 Jul 1969 20:17:00 GMT"
+		}
+    ],
+    "recorded_with": "It's called Vim, motherfucker"
+}
